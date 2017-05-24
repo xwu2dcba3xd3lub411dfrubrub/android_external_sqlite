@@ -1,6 +1,6 @@
 diff -r -u -d orig/shell.c ./shell.c
---- orig/shell.c	2017-05-22 08:31:04.000000000 -0700
-+++ ./shell.c	2017-05-22 11:01:53.687308032 -0700
+--- orig/shell.c	2017-05-24 08:13:50.000000000 -0700
++++ ./shell.c	2017-05-24 15:05:23.717311538 -0700
 @@ -52,6 +52,12 @@
  #endif
  #include <ctype.h>
@@ -38,8 +38,8 @@ diff -r -u -d orig/shell.c ./shell.c
  }
  
 diff -r -u -d orig/sqlite3.c ./sqlite3.c
---- orig/sqlite3.c	2017-05-22 08:31:04.000000000 -0700
-+++ ./sqlite3.c	2017-05-22 10:59:53.025096874 -0700
+--- orig/sqlite3.c	2017-05-24 08:13:50.000000000 -0700
++++ ./sqlite3.c	2017-05-24 15:08:30.993999586 -0700
 @@ -33862,6 +33862,9 @@
    if( p->ctrlFlags & UNIXFILE_PSOW ){
      rc |= SQLITE_IOCAP_POWERSAFE_OVERWRITE;
@@ -96,7 +96,32 @@ diff -r -u -d orig/sqlite3.c ./sqlite3.c
    /* pPager->pFirst = 0; */
    /* pPager->pFirstSynced = 0; */
    /* pPager->pLast = 0; */
-@@ -98987,7 +98976,7 @@
+@@ -80715,24 +80704,6 @@
+   break;
+ }
+ 
+-/* Opcode: IfNullRow P1 P2 P3 * *
+-** Synopsis: if P1.nullRow then r[P3]=NULL, goto P2
+-**
+-** Check the cursor P1 to see if it is currently pointing at a NULL row.
+-** If it is, then set register P3 to NULL and jump immediately to P2.
+-** If P1 is not on a NULL row, then fall through without making any
+-** changes.
+-*/
+-case OP_IfNullRow: {         /* jump */
+-  assert( pOp->p1>=0 && pOp->p1<p->nCursor );
+-  assert( p->apCsr[pOp->p1]!=0 );
+-  if( p->apCsr[pOp->p1]->nullRow ){
+-    sqlite3VdbeMemSetNull(aMem + pOp->p3);
+-    goto jump_to_p2;
+-  }
+-  break;
+-}
+-
+ /* Opcode: Column P1 P2 P3 P4 P5
+ ** Synopsis: r[P3]=PX
+ **
+@@ -98988,7 +98959,7 @@
  #endif
      sqlite3BtreeLeave(aNew->pBt);
    }
@@ -105,7 +130,7 @@ diff -r -u -d orig/sqlite3.c ./sqlite3.c
    aNew->zDbSName = sqlite3DbStrDup(db, zName);
    if( rc==SQLITE_OK && aNew->zDbSName==0 ){
      rc = SQLITE_NOMEM_BKPT;
-@@ -143414,7 +143403,7 @@
+@@ -143424,7 +143395,7 @@
    ** database it is OFF. This matches the pager layer defaults.  
    */
    db->aDb[0].zDbSName = "main";
