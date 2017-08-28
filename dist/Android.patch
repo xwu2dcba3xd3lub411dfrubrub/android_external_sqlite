@@ -1,6 +1,6 @@
 diff -r -u -d orig/shell.c ./shell.c
---- orig/shell.c	2017-08-01 06:54:30.000000000 -0700
-+++ ./shell.c	2017-08-01 23:58:26.320322760 -0700
+--- orig/shell.c	2017-08-24 09:58:36.000000000 -0700
++++ ./shell.c	2017-08-28 11:30:24.240207752 -0700
 @@ -84,6 +84,12 @@
  #endif
  #include <ctype.h>
@@ -38,8 +38,8 @@ diff -r -u -d orig/shell.c ./shell.c
  }
  
 diff -r -u -d orig/sqlite3.c ./sqlite3.c
---- orig/sqlite3.c	2017-08-01 06:54:30.000000000 -0700
-+++ ./sqlite3.c	2017-08-01 23:47:54.717764326 -0700
+--- orig/sqlite3.c	2017-08-24 09:58:36.000000000 -0700
++++ ./sqlite3.c	2017-08-28 11:34:02.727610683 -0700
 @@ -34396,6 +34396,9 @@
    if( p->ctrlFlags & UNIXFILE_PSOW ){
      rc |= SQLITE_IOCAP_POWERSAFE_OVERWRITE;
@@ -63,7 +63,7 @@ diff -r -u -d orig/sqlite3.c ./sqlite3.c
 -    pPager->fullSync = level>=PAGER_SYNCHRONOUS_FULL ?1:0;
 -    pPager->extraSync = level==PAGER_SYNCHRONOUS_EXTRA ?1:0;
 -  }
-+  pPager->noSync =  1;
++  pPager->noSync = 1;
 +  pPager->fullSync = 0;
 +  pPager->extraSync = 0;
    if( pPager->noSync ){
@@ -96,7 +96,7 @@ diff -r -u -d orig/sqlite3.c ./sqlite3.c
    /* pPager->pFirst = 0; */
    /* pPager->pFirstSynced = 0; */
    /* pPager->pLast = 0; */
-@@ -99755,7 +99744,7 @@
+@@ -99756,7 +99745,7 @@
  #endif
      sqlite3BtreeLeave(pNew->pBt);
    }
@@ -105,7 +105,7 @@ diff -r -u -d orig/sqlite3.c ./sqlite3.c
    pNew->zDbSName = sqlite3DbStrDup(db, zName);
    if( rc==SQLITE_OK && pNew->zDbSName==0 ){
      rc = SQLITE_NOMEM_BKPT;
-@@ -144577,7 +144566,7 @@
+@@ -144578,7 +144567,7 @@
    ** database it is OFF. This matches the pager layer defaults.  
    */
    db->aDb[0].zDbSName = "main";
