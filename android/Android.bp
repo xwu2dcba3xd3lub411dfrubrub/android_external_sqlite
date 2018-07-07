@@ -19,11 +19,6 @@ cc_library_static {
             cflags: ["-USQLITE_ENABLE_ICU"],
             exclude_shared_libs: ["libicuuc", "libicui18n"],
         },
-        android: {
-            lto: {
-                 thin: true,
-            },
-        },
     },
     export_include_dirs: ["."],
 }

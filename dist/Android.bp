@@ -86,10 +86,6 @@ cc_library {
 
             // include android specific methods
             whole_static_libs: ["libsqlite3_android"],
-
-            lto: {
-                 thin: true,
-            },
         },
         host: {
             static_libs: [
@@ -144,10 +140,6 @@ cc_binary {
             static_libs: [
                 "libicuandroid_utils",
             ],
-
-            lto: {
-                 thin: true,
-            },
         },
         host: {
             cflags: ["-DNO_ANDROID_FUNCS=1"],
